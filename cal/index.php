@@ -14,24 +14,77 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
-            $('#sum').click(function(){
-                var val1 = parseInt($('#val1').val()); 
-                var val2 = parseInt($('#val2').val());
+           
+                $('#sum').click(function(){
+                    var val1 = parseInt($('#val1').val()); 
+                    var val2 = parseInt($('#val2').val());
 
-                var ans = val1+val2;
-                $.ajax({
-                    type:"POST",
-                    url:"ajax_cal.php",
-                    data:{'name':ans},
+                    var ans = val1+val2;
+                    $.ajax({
+                        type:"POST",
+                        url:"ajax_cal.php",
+                        data:{'name':ans},
 
-                    success:function(res)
-                    {
-                        $('#ans').val(res);
-                    }
+                        success:function(res)
+                        {
+                            $('#ans').val(res);
+                        }
+                    })
                 })
-            })
-        })        
+                $('#sub').click(function(){
+                    var val1 = parseInt($('#val1').val()); 
+                    var val2 = parseInt($('#val2').val());
 
+                    var ans = val1-val2;
+                    $.ajax({
+                        type:"POST",
+                        url:"ajax_cal.php",
+                        data:{'name':ans},
+
+                        success:function(res)
+                        {
+                            $('#ans').val(res);
+                        }
+                    })
+                })
+
+                $('#mul').click(function(){
+                    var val1 = parseInt($('#val1').val());
+                    var val2 = parseInt($('#val2').val());
+
+                    var ans = val1*val2;
+
+                    $.ajax({
+                        type:"POST",
+                        url:"ajax_cal.php",
+                        data:{'name':ans},
+                        
+                        success:function(res)
+                        {
+                            $('#ans').val(res);
+                        }
+                    })
+                })
+
+                $('#divison').click(function(){
+                    var val1 = parseInt($('#val1').val());
+                    var val2 = parseInt($('#val2').val());
+
+                    var ans = val1/val2;
+
+                    $.ajax({
+                        type:"POST",
+                        url:"ajax_cal.php",
+                        data:{'name':ans},
+
+                        success:function(res)
+                        {
+                            $('#ans').val(res);
+                        }
+                    })
+                })
+                 
+        })        
     </script>
 </head>
 
