@@ -23,11 +23,12 @@
 			color: white;
 			padding: 40px;
 			margin: auto;
+            margin-top: 20px;
         }
         .display{
             width: 100%;
 			height: 60px;
-			text-align: left;
+			text-align: right;
 			margin-bottom: 20px;
 			background: black;
 			border: 1px solid yellow;
@@ -49,12 +50,91 @@
 
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            var val1;
+            var sign;
+            var firstval;
+            var lastval;
+            $('input[type=button]').click(function(){
+               val1 = $(this).val();
+
+                document.getElementById('display').value += val1;
+               if (val1 == '+') {
+                    sign =  $(this).val();
+
+                    firstval = document.getElementById('display').value;
+                    document.getElementById('display').value = '';
+               }else if(val1 == '-')
+               {
+                    sign =  $(this).val();
+
+                    firstval = document.getElementById('display').value;
+                    document.getElementById('display').value = '';
+               }
+               else if(val1 == '*'){
+                    sign =  $(this).val();
+
+                    firstval = document.getElementById('display').value;
+                    document.getElementById('display').value = '';
+               }
+               else if(val1 == '/'){
+                    sign =  $(this).val();
+
+                    firstval = document.getElementById('display').value;
+                    document.getElementById('display').value = '';
+               }
+               else if(val1 == '=')
+               {
+                lastval = document.getElementById('display').value;
+                document.getElementById('display').value= '';
+                    if(sign == '+')
+                    {
+                        var ans = parseFloat(firstval)+parseFloat(lastval);
+                    }
+                    else if(sign == '-')
+                    {
+                        var ans = parseFloat(firstval)-parseFloat(lastval);
+                    }
+                    else if(sign == '*')
+                    {
+                        var ans = parseFloat(firstval)*parseFloat(lastval);
+                    }
+                    else if(sign == '/')
+                    {
+                        var ans = parseFloat(firstval)/parseFloat(lastval);
+                    }
+                    else if(sign == '%')
+                    {
+                        var ans = parseFloat(firstval)%parseFloat(lastval);
+                    }
+                    $('#display').val(ans);
+
+               }
+               else if(val1 == 'C')
+               {
+                    document.getElementById('display').value = '';
+                    firstval = 0;
+                    lastval = 0;
+                    sign = '';
+               }
+               else if(val1 == '%')
+               {
+                sign =  $(this).val();
+
+                firstval = document.getElementById('display').value;
+                document.getElementById('display').value = '';
+               }
+            })
+        })
+    </script>
 </head>
 
 <body>
     <div class="container">
         <div class="cal">
-            <input type="tetx" class="display" readonly>
+            <input type="tetx" class="display" readonly id="display">
             <br>
             <input type="button" value="C" class="button_box">
             <input type="button" value="%" class="button_box">
