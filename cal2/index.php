@@ -35,6 +35,7 @@
 			color: white;
 			font-size: 26px;
 			padding-left: 10px;
+            padding-right: 10px;
         }
 
         .button_box {
