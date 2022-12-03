@@ -24,6 +24,7 @@
 			padding: 40px;
 			margin: auto;
             margin-top: 20px;
+            border-radius: 20px;
         }
         .display{
             width: 100%;
@@ -35,7 +36,6 @@
 			color: white;
 			font-size: 26px;
 			padding-left: 10px;
-            padding-right: 10px;
         }
 
         .button_box {
@@ -50,91 +50,13 @@
 			color: white;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function(){
-            var val1;
-            var sign;
-            var firstval;
-            var lastval;
-            $('input[type=button]').click(function(){
-               val1 = $(this).val();
-
-                document.getElementById('display').value += val1;
-               if (val1 == '+') {
-                    sign =  $(this).val();
-
-                    firstval = document.getElementById('display').value;
-                    document.getElementById('display').value = '';
-               }else if(val1 == '-')
-               {
-                    sign =  $(this).val();
-
-                    firstval = document.getElementById('display').value;
-                    document.getElementById('display').value = '';
-               }
-               else if(val1 == '*'){
-                    sign =  $(this).val();
-
-                    firstval = document.getElementById('display').value;
-                    document.getElementById('display').value = '';
-               }
-               else if(val1 == '/'){
-                    sign =  $(this).val();
-
-                    firstval = document.getElementById('display').value;
-                    document.getElementById('display').value = '';
-               }
-               else if(val1 == '%')
-               {
-                sign =  $(this).val();
-
-                firstval = document.getElementById('display').value;
-                document.getElementById('display').value = '';
-               }
-               else if(val1 == '=')
-               {
-                lastval = document.getElementById('display').value;
-                document.getElementById('display').value= '';
-                    if(sign == '+')
-                    {
-                        var ans = parseFloat(firstval)+parseFloat(lastval);
-                    }
-                    else if(sign == '-')
-                    {
-                        var ans = parseFloat(firstval)-parseFloat(lastval);
-                    }
-                    else if(sign == '*')
-                    {
-                        var ans = parseFloat(firstval)*parseFloat(lastval);
-                    }
-                    else if(sign == '/')
-                    {
-                        var ans = parseFloat(firstval)/parseFloat(lastval);
-                    }
-                    else if(sign == '%')
-                    {
-                        var ans = parseFloat(firstval)%parseFloat(lastval);
-                    }
-                    $('#display').val(ans);
-
-               }
-               else if(val1 == 'C')
-               {
-                    document.getElementById('display').value = '';
-                    firstval = 0;
-                    lastval = 0;
-                    sign = '';
-               }
-            })
-        })
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="cal">
-            <input type="tetx" class="display" readonly id="display">
+            <input type="text" class="display" readonly id="display">
             <br>
             <input type="button" value="C" class="button_box">
             <input type="button" value="%" class="button_box">
@@ -161,7 +83,7 @@
             <input type="button" value="0" class="button_box">
             <input type="button" value="00" class="button_box">
             <input type="button" value="." class="button_box">
-            <input type="button" value="=" class="button_box">
+            <input type="button" value="equal" class="button_box">
         </div>
     </div>
 
@@ -169,12 +91,29 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-    
 </body>
+
 </html>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('.button_box').click(function(){
+
+            var val1 = $(this).val();
+
+            $.ajax({
+                type:"POST",
+                url:"cal_ajax.php",
+                data:{'val1':val1},
+
+                success:function(res){
+                    $('#display').val(res);
+                }
+
+            })
+
+        })
+    })
+</script>

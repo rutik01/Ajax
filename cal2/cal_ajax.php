@@ -1,5 +1,4 @@
 <?php 
-
 session_start();
 
 if(!isset($_SESSION['txt']))
@@ -12,10 +11,9 @@ else
 }
 
 $val1 = $_POST['val1'];
-
 $cnt=0;
 
-if(!($val1=="+" || $val1=="-" || $val1=="*" || $val1=="/" || $val1=="C" || $val1=="equal"))
+if(!($val1=="+" || $val1=="-" || $val1=="*" || $val1=="/" || $val1=="C" || $val1=="equal" || $val1=="back"))
 {
 	$txt .= $val1;
 }
@@ -23,52 +21,59 @@ else if($val1=="C")
 {
 	$txt="";
 	$_SESSION['txt']=$txt;
+	
 }
 else if($val1=="+")
 {
-	$_SESSION['operation1'] = 1;
+	$_SESSION['operation'] = 1;
 	$_SESSION['txt1'] = $_SESSION['txt'];
 	$txt="";
 }
 else if($val1=='-')
 {
-	$_SESSION['operation2'] = 2;
+	$_SESSION['operation'] = 2;
 	$_SESSION['txt1']= $_SESSION['txt'];
 	$txt='';
 }
 else if($val1=='*')
 {
-	$_SESSION['operation3'] = 3;
+	$_SESSION['operation'] = 3;
 	$_SESSION['txt1']=$_SESSION['txt'];
 	$txt ='';
 }
 else if($val1=='/')
 {
-	$_SESSION['operation4'] = 4;
+	$_SESSION['operation'] = 4;
 	$_SESSION['txt1']=$_SESSION['txt'];
 	$txt='';
 }
+else if($val1=='back')
+{
+	// $txt = substr($val1, 0, strlen($val1-1));
+	$num = strlen((string)$txt);	
+	$txt = substr($txt, 0 ,$num-1);
+}
 else if($val1=="equal")
 {
-	if(isset($_SESSION['operation1'])==1)
+	if($_SESSION['operation']==1)
 	{
 		$txt = $_SESSION['txt1'] + $_SESSION['txt'];
-		session_destroy();
+		$_SESSION['operation']='';
 	}
-	else if(isset($_SESSION['operation2'])==2)
+	else if($_SESSION['operation']==2)
 	{
 		$txt = $_SESSION['txt1'] - $_SESSION['txt'];
-		session_destroy();
+		$_SESSION['operation']='';
 	}
-	else if(isset($_SESSION['operation3'])==3)
+	else if($_SESSION['operation']==3)
 	{
 		$txt = $_SESSION['txt1'] * $_SESSION['txt'];
-		session_destroy();
+		$_SESSION['operation']='';
 	}
-	else if(isset($_SESSION['operation4'])==4)
+	else if($_SESSION['operation']==4)
 	{
 		$txt = $_SESSION['txt1'] / $_SESSION['txt'];
-		session_destroy();
+		$_SESSION['operation']='';
 	}
 }
 
