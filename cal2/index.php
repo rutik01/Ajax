@@ -37,7 +37,6 @@
 			font-size: 26px;
 			padding-left: 10px;
         }
-
         .button_box {
             height: 60px;
 			width: 60px;

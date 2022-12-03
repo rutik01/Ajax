@@ -9,7 +9,6 @@ else
 {
 	$txt = $_SESSION['txt'];
 }
-
 $val1 = $_POST['val1'];
 $cnt=0;
 
