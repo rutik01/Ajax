@@ -110,7 +110,7 @@
                 success:function(res){
                     $('#display').val(res);
                 }
-
+                
             })
 
         })

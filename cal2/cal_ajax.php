@@ -48,7 +48,6 @@ else if($val1=='/')
 }
 else if($val1=='back')
 {
-	// $txt = substr($val1, 0, strlen($val1-1));
 	$num = strlen((string)$txt);	
 	$txt = substr($txt, 0 ,$num-1);
 }
