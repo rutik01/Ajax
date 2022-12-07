@@ -1,11 +1,22 @@
+<?php
+$con = mysqli_connect('localhost','root','root','ajax_form');
+
+
+$sel_query = "SELECT * FROM form_data";
+
+
+$data = mysqli_query($con,$sel_query);
+
+
+
+?>
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello, world!</title>
+    <title>Ajax Register Form</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -134,14 +145,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mt-3 mb-5">
+                    <!-- <div class="row mt-3 mb-5">
                         <div class="col-2">
                             <h5 class="p-2">*Image:</h5>
                         </div>
                         <div class="col-auto rounded-3">
                             <input type="file" name="image" id="" class="p-2" require>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <hr>
@@ -155,7 +166,38 @@
         </div>
     </form>
 
-
+<div class="container mt-5">
+    <table class="mt-4" id="ajax_data">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Dob</th>
+            <th>City</th>
+            <th>Document</th>
+            <th>Delete</th>
+            <tbody>
+                <?php while($row = mysqli_fetch_assoc($data)) { ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td> <?php echo $row['name']; ?></td>
+                        <td> <?php echo $row['surname']; ?></td>
+                        <td> <?php echo $row['address']; ?></td>
+                        <td> <?php echo $row['email']; ?></td>
+                        <td> <?php echo $row['password']; ?></td>
+                        <td> <?php echo $row['dob']; ?></td>
+                        <td> <?php echo $row['city']; ?></td>
+                        <td> <?php echo $row['document']; ?></td>
+                        <td><a href="" data-id='<?php echo $row['id']; ?>' class="delete">Delete</a></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </tr>
+    </table>
+</div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -163,7 +205,6 @@
 
    
 </body>
-
 </html>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -171,17 +212,30 @@
             e.preventDefault();
             var data = $(this).serialize();
 
-            alert(data);
-
             $.ajax({
                 type:"POST",
                 url:"form_data.php",
                 data:data,
 
+            success:function(res){
+                $("#frm_data")[0].reset();
+                $('#ajax_data').html(res);
+                }   
+            })
+        });
+
+        $('.delete').click(function(){
+
+            var delete_id = $(this).data('id');
+            // alert(delete_id);
+
+            $.ajax({
+                type:'POST',
+                url:'form_data.php',
+                data:{
+                    'd_id':delete_id,
+                }
             })
         })
     })
-
-
-
 </script>

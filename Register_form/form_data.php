@@ -1,43 +1,55 @@
 <?php 
-
 $con = mysqli_connect('localhost','root','root','ajax_form');
+if(isset($_POST['d_id']))
+{
+    $delete_id = $_POST['d_id'];
+    $delete_query = "DELETE FROM form_data WHERE id = $delete_id";
+    mysqli_query($con,$delete_query);
+    
+}else{
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $dob = $_POST['dob'];
+    $city = $_POST['City'];
+    $document = $_POST['document'];
 
-$name = $_POST['name'];
-$surname = $_POST['surname'];
-$address = $_POST['address'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$dob = $_POST['dob'];
-$city = $_POST['City'];
-$document = $_POST['document'];
-$image = $_FILES['image']['name'];
-$path = 'img/'.$image;
+    $insert_query = "INSERT INTO form_data (name,surname,address,email,password,dob,city,document) values ('$name','$surname','$address','$email','$password','$dob','$city','$document')";
 
-
-$insert_query = "INSERT INTO form_data (name,surname,address,email,password,dob,city,document,image) values ('$name','$surname','$address','$email','$password','$dob','$city','$document','$image')";
-
-echo $insert_query.'<br>';
-
-if($data = mysqli_query($con,$insert_query)){
-    if($image!= '')
-    {
-        move_uploaded_file($_FILES['image']['tmp_name'],$path);
-    }
-    else{
-        echo "Plz, Choose the image";
-    }
-   
+    $data = mysqli_query($con,$insert_query);
 }
-
-echo $name.'<br>';
-echo $surname.'<br>';
-echo $address.'<br>';
-echo $email.'<br>';
-echo $password.'<br>';
-echo $dob.'<br>';
-echo $city.'<br>';
-echo $document.'<br>';
-echo $image.'<br>';
-
-
+    $sel_query = "SELECT * FROM form_data";
+    $data1 = mysqli_query($con,$sel_query);
 ?>
+<table>
+    <?php while($row = mysqli_fetch_assoc($data1)) { ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['name']; ?></td>
+            <td><?php echo $row['surname']; ?></td>
+            <td><?php echo $row['address']; ?></td>
+            <td><?php echo $row['email']; ?></td>
+            <td><?php echo $row['password']; ?></td>
+            <td><?php echo $row['dob']; ?></td>
+            <td><?php echo $row['city']; ?></td>
+            <td><?php echo $row['document']; ?></td>
+        </tr>
+    <?php } ?>
+</table>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('.delete').click(function(){
+            $.ajax({
+                type:"POST",
+                url:'form_data.php',
+                data:{'d_id':delete_id},
+            })
+        })
+    })
+
+
+</script>
