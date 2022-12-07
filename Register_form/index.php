@@ -1,14 +1,8 @@
 <?php
-$con = mysqli_connect('localhost','root','root','ajax_form');
-
+$con = mysqli_connect('localhost', 'root', 'root', 'ajax_form');
 
 $sel_query = "SELECT * FROM form_data";
-
-
-$data = mysqli_query($con,$sel_query);
-
-
-
+$data = mysqli_query($con, $sel_query);
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,28 +13,23 @@ $data = mysqli_query($con,$sel_query);
     <title>Ajax Register Form</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         .container {
             border: 1px solid black;
             border-radius: 20px;
         }
-
         table {
             margin-left: 20px;
             text-align: center;
         }
     </style>
 </head>
-
 <body>
-
     <form method="POST" id="frm_data" enctype="multipart/form-data">
         <div class="container bg-white border border-white-1">
             <hr>
@@ -57,7 +46,7 @@ $data = mysqli_query($con,$sel_query);
                             <h5 class="p-2">*First Name:</h5>
                         </div>
                         <div class="col-auto m-0">
-                            <input type="text" name="name"  class="p-2 rounded-3" require>
+                            <input type="text" name="name" class="p-2 rounded-3" require>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -145,14 +134,6 @@ $data = mysqli_query($con,$sel_query);
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="row mt-3 mb-5">
-                        <div class="col-2">
-                            <h5 class="p-2">*Image:</h5>
-                        </div>
-                        <div class="col-auto rounded-3">
-                            <input type="file" name="image" id="" class="p-2" require>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <hr>
@@ -165,23 +146,23 @@ $data = mysqli_query($con,$sel_query);
             </div>
         </div>
     </form>
-
-<div class="container mt-5">
-    <table class="mt-4" id="ajax_data">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Dob</th>
-            <th>City</th>
-            <th>Document</th>
-            <th>Delete</th>
-            <tbody>
-                <?php while($row = mysqli_fetch_assoc($data)) { ?>
-                    <tr>
+    <div class="container mt-5">
+        <table class="mt-4">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Dob</th>
+                <th>City</th>
+                <th>Document</th>
+                <th>Delete</th>
+            </tr>
+            <tbody id="form_data">
+            <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                <tr>
                         <td><?php echo $row['id']; ?></td>
                         <td> <?php echo $row['name']; ?></td>
                         <td> <?php echo $row['surname']; ?></td>
@@ -191,50 +172,47 @@ $data = mysqli_query($con,$sel_query);
                         <td> <?php echo $row['dob']; ?></td>
                         <td> <?php echo $row['city']; ?></td>
                         <td> <?php echo $row['document']; ?></td>
-                        <td><a href="" data-id='<?php echo $row['id']; ?>' class="delete">Delete</a></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </tr>
-    </table>
-</div>
+                        <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
+                        </tr>
+            <?php } ?>
 
+            </tbody>
+        </table>
+    </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
-   
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#frm_data').submit(function(e){
+    $(document).ready(function() {
+        $('#frm_data').submit(function(e) {
             e.preventDefault();
             var data = $(this).serialize();
-
             $.ajax({
-                type:"POST",
-                url:"form_data.php",
-                data:data,
+                type: "POST",
+                url: "form_data.php",
+                data: data,
 
-            success:function(res){
-                $("#frm_data")[0].reset();
-                $('#ajax_data').html(res);
-                }   
+                success: function(res) {
+                    $("#frm_data")[0].reset();
+                    $('#form_data').html(res);
+                }
             })
         });
-
-        $('.delete').click(function(){
-
-            var delete_id = $(this).data('id');
-            // alert(delete_id);
-
-            $.ajax({
-                type:'POST',
-                url:'form_data.php',
-                data:{
-                    'd_id':delete_id,
-                }
+        $(document).ready(function() {
+            $('.delete').click(function() {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    type: "POST",
+                    url: "form_data.php",
+                    data: {
+                        'id': id
+                    },
+                    success: function(res) {
+                        $('#form_data').html(res);
+                    }
+                })
             })
         })
     })

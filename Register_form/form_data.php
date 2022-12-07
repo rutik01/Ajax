@@ -1,12 +1,11 @@
-<?php 
-$con = mysqli_connect('localhost','root','root','ajax_form');
-if(isset($_POST['d_id']))
-{
-    $delete_id = $_POST['d_id'];
+<?php
+$con = mysqli_connect('localhost', 'root', 'root', 'ajax_form');
+if (isset($_POST['id'])) {
+    $delete_id = $_POST['id'];
     $delete_query = "DELETE FROM form_data WHERE id = $delete_id";
-    mysqli_query($con,$delete_query);
-    
-}else{
+
+    mysqli_query($con, $delete_query);
+} else {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $address = $_POST['address'];
@@ -17,14 +16,13 @@ if(isset($_POST['d_id']))
     $document = $_POST['document'];
 
     $insert_query = "INSERT INTO form_data (name,surname,address,email,password,dob,city,document) values ('$name','$surname','$address','$email','$password','$dob','$city','$document')";
-
-    $data = mysqli_query($con,$insert_query);
+    $data = mysqli_query($con, $insert_query);
 }
-    $sel_query = "SELECT * FROM form_data";
-    $data1 = mysqli_query($con,$sel_query);
+$sel_query = "SELECT * FROM form_data";
+$data = mysqli_query($con, $sel_query);
 ?>
-<table>
-    <?php while($row = mysqli_fetch_assoc($data1)) { ?>
+    <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+
         <tr>
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['name']; ?></td>
@@ -35,21 +33,23 @@ if(isset($_POST['d_id']))
             <td><?php echo $row['dob']; ?></td>
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['document']; ?></td>
+            <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
         </tr>
     <?php } ?>
-</table>
-
 <script type="text/javascript">
-
-    $(document).ready(function(){
-        $('.delete').click(function(){
+    $(document).ready(function() {
+        $('.delete').click(function() {
+            var id = $(this).attr('data-id')
             $.ajax({
-                type:"POST",
-                url:'form_data.php',
-                data:{'d_id':delete_id},
+                type: "POST",
+                url: "form_data.php",
+                data: {
+                    'id': id
+                },
+                success: function(res) {
+                        $('#form_data').html(res);
+                }
             })
         })
     })
-
-
 </script>
