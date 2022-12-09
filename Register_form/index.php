@@ -61,13 +61,13 @@ $data = mysqli_query($con, $sel_query);
             background: #fff;
             width: 70%;
             position: relative;
-            top: 0;
+            top: 10%;
             left: 15%;
-            padding: 20px;
-            border-radius: 4px;
             border: 1px solid black;
+            border-radius: 4px;
         }
-        #close-btn{
+
+        #close-btn {
             background: red;
             color: white;
             width: 30px;
@@ -76,8 +76,8 @@ $data = mysqli_query($con, $sel_query);
             text-align: center;
             border-radius: 10px;
             position: absolute;
-             top: 15px;
-            right: 15px;
+            top: -15px;
+            right: -15px;
             cursor: pointer;
         }
     </style>
@@ -88,124 +88,16 @@ $data = mysqli_query($con, $sel_query);
         <div id="model-form">
             <h4>Update Your Profile</h4>
             <table cellpadding="0" width="100%">
-                <form method="POST"  enctype="multipart/form-data">
-                    <div class="container bg-white border border-white-1">
-                        <hr>
-                        <div class="row card-header bg-dark text-white">
-                            <div class="col-12 text-center mt-4">
-                                <h3>!! 🆁🅴🅶🅸🆂🆃🅴🆁-🅵🅾🆁🅼 !!</h3>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row-12">
-                            <div class="col-12">
-                                <div class="row mt-5">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*First Name:</h5>
-                                    </div>
-                                    <div class="col-auto m-0">
-                                        <input type="text" name="name" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*Surname:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" name="surname" id="" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*Address:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" name="address" id="" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*Email:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="email" name="email" id="" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*Password:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="password" name="password" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*DOB:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="date" name="dob" class="p-2 rounded-3" require>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*City:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="p-2 rounded-2 text-bold" name="City" require>
-                                            <option class="font-weight-bold">Surat</option>
-                                            <option class="font-weight-bold">Ahemdabad</option>
-                                            <option class="font-weight-bold">Baroda</option>
-                                            <option class="font-weight-bold">Bharuch</option>
-                                            <option class="font-weight-bold">Vapi</option>
-                                            <option class="font-weight-bold">Valsad</option>
-                                            <option class="font-weight-bold">Navsari</option>
-                                            <option class="font-weight-bold">Aanad</option>
-                                            <option class="font-weight-bold">Gandhinagar</option>
-                                            <option class="font-weight-bold">Banglore</option>
-                                            <option class="font-weight-bold">Rajkot</option>
-                                            <option class="font-weight-bold">Jamnagsr</option>
-                                            <option class="font-weight-bold">Porbander</option>
-                                            <option class="font-weight-bold">Bhavnagar</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-2">
-                                        <h5 class="p-2">*Document:</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="p-2 rounded-3" name="document" require>
-                                            <option>Water Bill</option>
-                                            <option>Telephone (mobile bill)</option>
-                                            <option>Electricity bill</option>
-                                            <option>Income Tax Assessment Order</option>
-                                            <option>Election ID card</option>
-                                            <option>Proof of Gas Connection</option>
-                                            <option>Certificate from Employe</option>
-                                            <option>Spouse's passport copy </option>
-                                            <option>Parent's passport copy</option>
-                                            <option>Aadhaar Card</option>
-                                            <option>Rent Agreement</option>
-                                            <option>Photo Passbook</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row row-cols-2 card-footer bg-dark text-white">
-                            <div class="col-auto">
-                                <div class="col-2">
-                                    <input type="submit" value="submit" class="btn btn-primary m-3" name="submit">
-                                </div>
-                            </div>
-                        </div>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="container bg-white border-none">
+                       
+                       
                     </div>
                 </form>
             </table>
-            <div id="close-btn">X</div>
+            <div>
+                <button id="close-btn" class="close_popup">X</button>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -233,7 +125,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*Surname:</h5>
                             </div>
                             <div class="col-auto">
-                                <input type="text" name="surname" id="" class="p-2 rounded-3" require>
+                                <input type="text" name="surname"  class="p-2 rounded-3" require>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -241,7 +133,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*Address:</h5>
                             </div>
                             <div class="col-auto">
-                                <input type="text" name="address" id="" class="p-2 rounded-3" require>
+                                <input type="text" name="address"  class="p-2 rounded-3" require>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -249,7 +141,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*Email:</h5>
                             </div>
                             <div class="col-auto">
-                                <input type="email" name="email" id="" class="p-2 rounded-3" require>
+                                <input type="email" name="email" class="p-2 rounded-3" require>
                             </div>
                         </div>
 
@@ -323,6 +215,7 @@ $data = mysqli_query($con, $sel_query);
                         </div>
                     </div>
                 </div>
+
             </div>
         </form>
     </div>
@@ -410,6 +303,59 @@ $data = mysqli_query($con, $sel_query);
         // Show model Box..
         $(document).on("click", ".edit-btn", function() {
             $("#model").show();
+            var user_id = $(this).data('eid');
+            $.ajax({
+                type: "POST",
+                url: "update_data.php",
+                data: {
+                    update_id: user_id
+                },
+
+                success: function(data) {
+                    $("#model-form .container").html(data);
+                }
+            })
         });
+
+        // hide Model Box
+        $(document).on('click', '.close_popup', function() {
+            $("#model").hide();
+        });
+
+        // save update form
+        $(document).on('click','#update-submit', function(){
+            var stuId = $('#user_id').val();
+
+            var name = $('#edit_name').val();
+            var surname = $('#edit_surname').val();
+            var email = $('#edit_email').val();
+            var address = $('#edit_address').val();
+            var password = $('#edit_password').val();
+            var dob = $('#edit_dob').val();
+            var city = $('#edit_city').val();
+            var document = $('#edit_document').val();
+
+            $.ajax({
+                url:'form_data.php',
+                type:'post',
+                data:{
+                    update_id:stuId,
+                    name: name,
+                    surname: surname,
+                    email:email,
+                    address: address,
+                    password: password,
+                    dob: dob,
+                    city: city,
+                    document: document,
+
+                    success:function(res){
+                            $("#model").hide(); 
+                            $('#form_data').html(res);
+                    }
+                }
+                
+            })
+        })
     })
 </script>
