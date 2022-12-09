@@ -33,6 +33,10 @@ $data = mysqli_query($con, $sel_query);
             <td><?php echo $row['dob']; ?></td>
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['document']; ?></td>
+            <td>
+                <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary">Edit</button>
+            </td>
+            <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
             <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
         </tr>
     <?php } ?>
