@@ -20,10 +20,9 @@ if (isset($_POST['id'])) {
     $cnt=2;
 
     $up_user_data = "UPDATE form_data SET name = '$name',surname='$surname',address='$address',email='$email',password='$password',dob='$dob',city='$city',document='$document' WHERE id = '$up_id'";
-    if(mysqli_query($con,$up_user_data)){
-        $sel_query = "SELECT * FROM form_data";
-        $data = mysqli_query($con, $sel_query);
-    }
+    mysqli_query($con,$up_user_data);
+    $sel_query = "SELECT * FROM form_data where id='$up_id'";
+    $data = mysqli_query($con, $sel_query);
 }else {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
@@ -47,7 +46,7 @@ if($cnt==1){
 ?>
 <?php while ($row = mysqli_fetch_assoc($data)) { ?>
 
-    <tr>
+    <tr id="row_<?php echo $row['id'];?>">
         <td><?php echo $row['id']; ?></td>
         <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['surname']; ?></td>

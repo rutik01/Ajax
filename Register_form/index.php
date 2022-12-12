@@ -20,31 +20,25 @@ $data = mysqli_query($con, $sel_query);
             padding: 0;
             box-sizing: border-box;
         }
-
         .container {
             /* border: 1px solid black; */
             border-radius: 20px;
         }
-
         table {
             text-align: center;
         }
-
         th {
             padding: 20px;
             background-color: #212529 !important;
             color: white;
         }
-
         td {
             padding: 10px;
         }
-
         tbody tr {
             width: 100%;
             border: 1px solid black;
         }
-
         #model {
             background: (0, 0, 0, 0.7);
             position: fixed;
@@ -56,7 +50,6 @@ $data = mysqli_query($con, $sel_query);
             text-align: center;
             display: none;
         }
-
         #model-form {
             background: #fff;
             width: 70%;
@@ -65,8 +58,8 @@ $data = mysqli_query($con, $sel_query);
             left: 15%;
             border: 1px solid black;
             border-radius: 4px;
+            transition: .5s;
         }
-
         #close-btn {
             background: red;
             color: white;
@@ -220,42 +213,46 @@ $data = mysqli_query($con, $sel_query);
         </form>
     </div>
     <div class="container mt-5">
-        <table class="mt-4">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Dob</th>
-                <th>City</th>
-                <th>Document</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            <tbody id="form_data">
-                <?php while ($row = mysqli_fetch_assoc($data)) { ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td> <?php echo $row['name']; ?></td>
-                        <td> <?php echo $row['surname']; ?></td>
-                        <td> <?php echo $row['address']; ?></td>
-                        <td> <?php echo $row['email']; ?></td>
-                        <td> <?php echo $row['password']; ?></td>
-                        <td> <?php echo $row['dob']; ?></td>
-                        <td> <?php echo $row['city']; ?></td>
-                        <td> <?php echo $row['document']; ?></td>
-                        <td>
-                            <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary px-3 py-2 rounded">Edit</button>
-                        </td>
-                        <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
-                        <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
+        <div class="row-12">
+            <div class="col-md-4 col-12">
+                <table class="mt-4">
+                    <tr >
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Dob</th>
+                        <th>City</th>
+                        <th>Document</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
-                <?php } ?>
+                    <tbody id="form_data">
+                        <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                            <tr id="row_<?php echo $row['id'];?>">
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td> <?php echo $row['name']; ?></td>
+                                    <td> <?php echo $row['surname']; ?></td>
+                                    <td> <?php echo $row['address']; ?></td>
+                                    <td> <?php echo $row['email']; ?></td>
+                                    <td> <?php echo $row['password']; ?></td>
+                                    <td> <?php echo $row['dob']; ?></td>
+                                    <td> <?php echo $row['city']; ?></td>
+                                    <td> <?php echo $row['document']; ?></td>
+                                    <td>
+                                        <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary px-3 py-2 rounded">Edit</button>
+                                    </td>
+                                    <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
+                                    <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
+                                </tr>
+                        <?php } ?>
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 
@@ -322,7 +319,7 @@ $data = mysqli_query($con, $sel_query);
             $("#model").hide();
         });
 
-        // save update form
+        // updated data
         $(document).on('click','#update-submit', function(){
             var stuId = $('#user_id').val();
 
@@ -349,9 +346,10 @@ $data = mysqli_query($con, $sel_query);
                     city: city,
                     document: document,
 
-                    success:function(res){
+                    success:function(up_data){
+                        console.log(up_data);
                             $("#model").hide(); 
-                            $('#form_data').html(res);
+                            $('#form_data').html(up_data);
                     }
                 }
                 

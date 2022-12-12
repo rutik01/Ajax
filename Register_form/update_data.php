@@ -19,15 +19,14 @@ if (isset($_POST['update_id'])) {
             $city = $row['city'];
             $document = $row['document'];
 
-            $output .= "
-            <div class='row-12'>
+            $output = "<div class='row-12'>
                     <div class='col-12'>
                         <div class='row mt-5'>
                             <div class='col-2'>
                                 <h5 class='p-2'>*First Name:</h5>
                             </div>
                             <div class='col-auto m-0'>
-                            <input type='text'  class='p-2 rounded-3' id='user_id' hidden value=' $user_id' require>
+                            <input type='text'  class='p-2 rounded-3' id='user_id' hidden value='$user_id' require>
                             <input type='text' name='name' id='edit_name' class='p-2 rounded-3'  value='$name' require>
                             </div>
                         </div>
@@ -77,7 +76,7 @@ if (isset($_POST['update_id'])) {
                                 <h5 class='p-2'>*City:</h5>
                             </div>
                             <div class='col-auto'>
-                                <select class='p-2 rounded-2 text-bold' id='edit_city' name='City' value='$city' require>
+                                <select class='p-2 rounded-2 text-bold' id='edit_city' name='City' value='$city' selected require>
                                     <option class='font-weight-bold'>Surat</option>
                                     <option class='font-weight-bold'>Ahemdabad</option>
                                     <option class='font-weight-bold'>Baroda</option>
@@ -100,7 +99,7 @@ if (isset($_POST['update_id'])) {
                                 <h5 class='p-2'>*Document:</h5>
                             </div>
                             <div class='col-auto'>
-                                <select class='p-2 rounded-3' name='document' id='edit_document' value='$document' require>
+                                <select class='p-2 rounded-3' name='document' id='edit_document' value='$document' selected require>
                                     <option>Water Bill</option>
                                     <option>Telephone (mobile bill)</option>
                                     <option>Electricity bill</option>
