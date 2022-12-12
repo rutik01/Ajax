@@ -264,6 +264,20 @@ $data = mysqli_query($con, $sel_query);
 </html>
 <script type="text/javascript">
     $(document).ready(function() {
+
+        function loadTable() {
+            // $.ajax({
+            //     type:'POST',
+            //     url:'form_data.php',
+
+            //     success:function(data){
+            //         $('#form_data').html(data);
+            //     }
+
+            // })
+        }
+
+
         // Insert Data into the database.....
         $('#frm_data').submit(function(e) {
             e.preventDefault();
@@ -349,10 +363,9 @@ $data = mysqli_query($con, $sel_query);
                     success:function(up_data){
                         console.log(up_data);
                             $("#model").hide(); 
-                            $('#form_data').html(up_data);
+                            loadTable();
                     }
                 }
-                
             })
         })
     })

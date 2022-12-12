@@ -71,7 +71,7 @@ if($cnt==1){
                 type: "POST",
                 url: "form_data.php",
                 data: {
-                    'id': id
+                    'id': id 
                 },
                 success: function(res) {
                     $('#form_data').html(res);
