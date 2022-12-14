@@ -20,25 +20,31 @@ $data = mysqli_query($con, $sel_query);
             padding: 0;
             box-sizing: border-box;
         }
+
         .container {
             /* border: 1px solid black; */
             border-radius: 20px;
         }
+
         table {
             text-align: center;
         }
+
         th {
             padding: 20px;
             background-color: #212529 !important;
             color: white;
         }
+
         td {
             padding: 10px;
         }
+
         tbody tr {
             width: 100%;
             border: 1px solid black;
         }
+
         #model {
             background: (0, 0, 0, 0.7);
             position: fixed;
@@ -50,6 +56,7 @@ $data = mysqli_query($con, $sel_query);
             text-align: center;
             display: none;
         }
+
         #model-form {
             background: #fff;
             width: 70%;
@@ -60,6 +67,7 @@ $data = mysqli_query($con, $sel_query);
             border-radius: 4px;
             transition: .5s;
         }
+
         #close-btn {
             background: red;
             color: white;
@@ -83,8 +91,8 @@ $data = mysqli_query($con, $sel_query);
             <table cellpadding="0" width="100%">
                 <form method="POST" enctype="multipart/form-data">
                     <div class="container bg-white border-none">
-                       
-                       
+
+
                     </div>
                 </form>
             </table>
@@ -118,7 +126,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*Surname:</h5>
                             </div>
                             <div class="col-auto">
-                                <input type="text" name="surname"  class="p-2 rounded-3" require>
+                                <input type="text" name="surname" class="p-2 rounded-3" require>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -126,7 +134,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*Address:</h5>
                             </div>
                             <div class="col-auto">
-                                <input type="text" name="address"  class="p-2 rounded-3" require>
+                                <input type="text" name="address" class="p-2 rounded-3" require>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -216,7 +224,7 @@ $data = mysqli_query($con, $sel_query);
         <div class="row-12">
             <div class="col-md-4 col-12">
                 <table class="mt-4">
-                    <tr >
+                    <tr>
                         <th>Id</th>
                         <th>Name</th>
                         <th>Surname</th>
@@ -231,22 +239,22 @@ $data = mysqli_query($con, $sel_query);
                     </tr>
                     <tbody id="form_data">
                         <?php while ($row = mysqli_fetch_assoc($data)) { ?>
-                            <tr id="row_<?php echo $row['id'];?>">
-                                    <td><?php echo $row['id']; ?></td>
-                                    <td> <?php echo $row['name']; ?></td>
-                                    <td> <?php echo $row['surname']; ?></td>
-                                    <td> <?php echo $row['address']; ?></td>
-                                    <td> <?php echo $row['email']; ?></td>
-                                    <td> <?php echo $row['password']; ?></td>
-                                    <td> <?php echo $row['dob']; ?></td>
-                                    <td> <?php echo $row['city']; ?></td>
-                                    <td> <?php echo $row['document']; ?></td>
-                                    <td>
-                                        <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary px-3 py-2 rounded">Edit</button>
-                                    </td>
-                                    <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
-                                    <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
-                                </tr>
+                            <tr id="row_<?php echo $row['id']; ?>">
+                                <td><?php echo $row['id']; ?></td>
+                                <td> <?php echo $row['name']; ?></td>
+                                <td> <?php echo $row['surname']; ?></td>
+                                <td> <?php echo $row['address']; ?></td>
+                                <td> <?php echo $row['email']; ?></td>
+                                <td> <?php echo $row['password']; ?></td>
+                                <td> <?php echo $row['dob']; ?></td>
+                                <td> <?php echo $row['city']; ?></td>
+                                <td> <?php echo $row['document']; ?></td>
+                                <td>
+                                    <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary px-3 py-2 rounded">Edit</button>
+                                </td>
+                                <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
+                                <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
+                            </tr>
                         <?php } ?>
 
                     </tbody>
@@ -265,19 +273,6 @@ $data = mysqli_query($con, $sel_query);
 <script type="text/javascript">
     $(document).ready(function() {
 
-        function loadTable() {
-            // $.ajax({
-            //     type:'POST',
-            //     url:'form_data.php',
-
-            //     success:function(data){
-            //         $('#form_data').html(data);
-            //     }
-
-            // })
-        }
-
-
         // Insert Data into the database.....
         $('#frm_data').submit(function(e) {
             e.preventDefault();
@@ -295,8 +290,8 @@ $data = mysqli_query($con, $sel_query);
         });
 
         // Delete user data on the Database...
-        $(document).ready(function() {
-            $('.delete').click(function() {
+            $(document).on("click", ".delete", function(){
+                var el = this;
                 var id = $(this).attr('data-id');
                 $.ajax({
                     type: "POST",
@@ -305,11 +300,16 @@ $data = mysqli_query($con, $sel_query);
                         'id': id
                     },
                     success: function(res) {
-                        $('#form_data').html(res);
+
+                        $(el).closest('tr').css('background', 'tomato');
+                        $(el).closest('tr').fadeOut(800, function() {
+                            $(this).remove();
+                        });
+
+                        // $('#form_data').html(res);
                     }
                 })
             })
-        });
 
         // Show model Box..
         $(document).on("click", ".edit-btn", function() {
@@ -334,7 +334,7 @@ $data = mysqli_query($con, $sel_query);
         });
 
         // updated data
-        $(document).on('click','#update-submit', function(){
+        $(document).on('click', '#update-submit', function() {
             var stuId = $('#user_id').val();
 
             var name = $('#edit_name').val();
@@ -347,26 +347,25 @@ $data = mysqli_query($con, $sel_query);
             var document = $('#edit_document').val();
 
             $.ajax({
-                url:'form_data.php',
-                type:'post',
-                data:{
-                    update_id:stuId,
+                url: 'form_data.php',
+                type: 'post',
+                data: {
+                    update_id: stuId,
                     name: name,
                     surname: surname,
-                    email:email,
+                    email: email,
                     address: address,
                     password: password,
                     dob: dob,
                     city: city,
                     document: document,
+                },
 
-                    success:function(up_data){
-                        console.log(up_data);
-                            $("#model").hide(); 
-                            loadTable();
-                    }
+                success: function(res) {
+                    $("#model").hide();
+                    $('#row_' + stuId).html(res);
                 }
             })
-        })
+        });
     })
 </script>

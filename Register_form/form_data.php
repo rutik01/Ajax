@@ -1,4 +1,5 @@
 <?php
+
 $con = mysqli_connect('localhost', 'root', 'root', 'ajax_form');
 $cnt=0;
 if (isset($_POST['id'])) {
@@ -6,7 +7,7 @@ if (isset($_POST['id'])) {
     $delete_query = "DELETE FROM form_data WHERE id = $delete_id";
     $cnt=1;
 
-    mysqli_query($con, $delete_query);
+    $data = mysqli_query($con, $delete_query);
 }elseif(isset($_POST['update_id'])) {
     $up_id = $_POST['update_id'];
     $name = $_POST['name'];
@@ -44,39 +45,48 @@ if($cnt==1){
     $cnt=0;
 }
 ?>
-<?php while ($row = mysqli_fetch_assoc($data)) { ?>
+    <?php while ($row = mysqli_fetch_assoc($data))
+    { 
 
-    <tr id="row_<?php echo $row['id'];?>">
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['surname']; ?></td>
-        <td><?php echo $row['address']; ?></td>
-        <td><?php echo $row['email']; ?></td>
-        <td><?php echo $row['password']; ?></td>
-        <td><?php echo $row['dob']; ?></td>
-        <td><?php echo $row['city']; ?></td>
-        <td><?php echo $row['document']; ?></td>
-        <td>
-            <button data-eid="<?php echo $row['id']; ?>" class="edit-btn btn-primary  px-3 py-2 rounded">Edit</button>
-        </td>
-        <!-- <td><a href="javascript:void(0)" data-eid="<?php echo $row['id']; ?>" class="edit-btn">Edit</a></td> -->
-        <td><a href="javascript:void(0)" data-id="<?php echo $row['id']; ?>" class="delete">Delete</a></td>
-    </tr>
-<?php } ?>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.delete').click(function() {
-            var id = $(this).attr('data-id')
-            $.ajax({
-                type: "POST",
-                url: "form_data.php",
-                data: {
-                    'id': id 
-                },
-                success: function(res) {
-                    $('#form_data').html(res);
-                }
-            })
-        });
-    })
-</script>
+        $user_id = $row["id"];
+        $name = $row["name"];
+        $surname = $row["surname"];
+        $address = $row["address"];
+        $email = $row["email"];
+        $password = $row["password"];
+        $dob = $row["dob"];
+        $city = $row["city"];
+        $document = $row["document"];
+
+
+        // echo $user_id.'<br>';
+        // echo $name.'<br>';
+        // echo $surname.'<br>';
+        // echo $address.'<br>';
+        // echo $email.'<br>';
+        // echo $password.'<br>';
+        // echo  $dob.'<br>';
+        // echo  $city.'<br>';
+        // echo  $document.'<br>';
+
+
+        // die();   
+
+        $up_data = '<tr>
+                    <td>'.$user_id.'</td>
+                    <td>'.$name.'</td>
+                    <td>'.$surname.'</td>
+                    <td>'.$address.'</td>
+                    <td>'.$email.'</td>
+                    <td>'.$password.'</td>   
+                    <td>'.$dob.'</td>
+                    <td>'.$city.'</td>
+                    <td>'.$document.'</td>
+                    <td>
+                        <button data-eid='.$user_id.' class="edit-btn btn-primary  px-3 py-2 rounded">Edit</button>
+                    </td>
+                    <td><a href="javascript:void(0)" data-id='.$user_id.' class="delete">Delete</a></td>
+                    </tr>';
+            echo $up_data;
+    }  ?>
+
