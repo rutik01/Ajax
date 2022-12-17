@@ -93,7 +93,7 @@ $data = mysqli_query($con, $sel_query);
         <div id="model-form">
             <h4>Update Your Profile</h4>
             <table cellpadding="0" width="100%">
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" id="up_data">
                     <div class="container bg-white border-none">
                         <div class='row-12'>
                             <div class='col-12'>
@@ -102,7 +102,7 @@ $data = mysqli_query($con, $sel_query);
                                         <h5 class='p-2'>*First Name:</h5>
                                     </div>
                                     <div class='col-auto m-0'>
-                                        <input type='text'  class='p-2 rounded-3' id='user_id' hidden   require>
+                                        <input type='text'  class='p-2 rounded-3' name="user_id" id='user_id' hidden>
                                         <input type='text' name='name' id='edit_name' class='p-2 rounded-3'   require>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@ $data = mysqli_query($con, $sel_query);
                                         <h5 class='p-2'>*City:</h5>
                                     </div>
                                     <div class='col-auto'>
-                                        <select class='p-2 rounded-2 text-bold' id='edit_city' name='City' selected require>
+                                        <select class='p-2 rounded-2 text-bold' id='edit_city' name='city' selected require>
                                             <option class='font-weight-bold'>Surat</option>
                                             <option class='font-weight-bold'>Ahemdabad</option>
                                             <option class='font-weight-bold'>Baroda</option>
@@ -276,7 +276,7 @@ $data = mysqli_query($con, $sel_query);
                                 <h5 class="p-2">*City:</h5>
                             </div>
                             <div class="col-auto">
-                                <select class="p-2 rounded-2 text-bold" name="City" require>
+                                <select class="p-2 rounded-2 text-bold" name="city" require>
                                     <option class="font-weight-bold">Surat</option>
                                     <option class="font-weight-bold">Ahemdabad</option>
                                     <option class="font-weight-bold">Baroda</option>
@@ -386,12 +386,10 @@ $data = mysqli_query($con, $sel_query);
         $('#frm_data').submit(function(e) {
             e.preventDefault();
             var data = $(this).serialize();
-
             $.ajax({
                 type: "POST",
                 url: "form_data.php",
                 data: data,
-
                 success: function(res) {
                     $("#frm_data")[0].reset();
                     $('#form_data').html(res);
@@ -447,43 +445,25 @@ $data = mysqli_query($con, $sel_query);
                 }
             })
         });
-
         // hide Model Box
         $(document).on('click', '.close_popup', function() {
             $("#model").hide();
         });
-
         // updated data
-        $(document).on('click', '#update_submit', function() {
-            var stuId = $('#user_id').val();
-            var name = $('#edit_name').val();
-            var surname = $('#edit_surname').val();
-            var email = $('#edit_email').val();
-            var address = $('#edit_address').val();
-            var password = $('#edit_password').val();
-            var dob = $('#edit_dob').val();
-            var city = $('#edit_city').val();
-            var document = $('#edit_document').val();
-            alert('hello');
+        $('#up_data').submit(function(f)  {
+            f.preventDefault();
+            var data = $(this).serialize();
+            var user_id = $('#user_id').val();
 
             $.ajax({
                 url: 'form_data.php',
                 type: 'post',
-                data: {
-                    update_id: stuId,
-                    name: name,
-                    surname: surname,
-                    email: email,
-                    address: address,
-                    password: password,
-                    dob: dob,
-                    city: city,
-                    document: document,
-                },
+                data:data,
 
                 success: function(res) {
                     $("#model").hide();
-                    $('#row_' + stuId).html(res);
+                    // $('#form_data').html(res);
+                    $('#row_'+user_id).html(res);
                 }
             })
         });

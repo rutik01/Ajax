@@ -11,10 +11,10 @@ if (isset($_POST['id'])) {
     $cnt=1;
 
     $data = mysqli_query($con, $delete_query);
-}elseif(isset($_POST['update_id'])) {
+}elseif(isset($_POST['user_id'])) {
 
-    $up_id = $_POST['update_id'];
-    echo $up_id;
+
+    $up_id = $_POST['user_id'];
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $email = $_POST['email'];
@@ -24,11 +24,18 @@ if (isset($_POST['id'])) {
     $city = $_POST['city'];
     $document = $_POST['document'];
     $cnt=2;
+    if ($up_id!= '' && $name!= '' && $surname!= '' && $email!= '' && $address!= '' && $password!= '' && $dob!= '' && $city!= ''  && $document != '' )
+    {
+        $up_user_data = "UPDATE form_data SET name = '$name',surname='$surname',address='$address',email='$email',password='$password',dob='$dob',city='$city',document='$document' WHERE id = '$up_id'";
+        mysqli_query($con,$up_user_data);
+        $sel_query = "SELECT * FROM form_data where id='$up_id'";
+        $data = mysqli_query($con, $sel_query);
+    }
+    else{
+        echo '<Plz, All Filed is required>';
+    }
 
-    $up_user_data = "UPDATE form_data SET name = '$name',surname='$surname',address='$address',email='$email',password='$password',dob='$dob',city='$city',document='$document' WHERE id = '$up_id'";
-    mysqli_query($con,$up_user_data);
-    $sel_query = "SELECT * FROM form_data where id='$up_id'";
-    $data = mysqli_query($con, $sel_query);
+
 }else {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
@@ -36,12 +43,14 @@ if (isset($_POST['id'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $dob = $_POST['dob'];
-    $city = $_POST['City'];
+    $city = $_POST['city'];
     $document = $_POST['document'];
     $cnt=1;
+    if ($name!= '' && $surname!= '' && $email!= '' && $address!= '' && $password!= '' && $dob!= '' && $city!= ''  && $document != '' ) {
 
     $insert_query = "INSERT INTO form_data (name,surname,address,email,password,dob,city,document) values ('$name','$surname','$address','$email','$password','$dob','$city','$document')";
     $data = mysqli_query($con, $insert_query);
+    }
 }
 
 if($cnt==1){
@@ -74,10 +83,11 @@ if($cnt==1){
         // echo  $document.'<br>';
 
 
-        // die();   
+        // die();
 
-        $up_data = '<tr>
-                    <td>'.$user_id.'</td>
+        if (isset($_POST['user_id']))
+        {
+            $up_data = '<td>'.$user_id.'</td>
                     <td>'.$name.'</td>
                     <td>'.$surname.'</td>
                     <td>'.$address.'</td>
@@ -89,8 +99,25 @@ if($cnt==1){
                     <td>
                         <button data-eid='.$user_id.' class="edit-btn btn-primary  px-3 py-2 rounded">Edit</button>
                     </td>
-                    <td><a href="javascript:void(0)" data-id='.$user_id.' class="delete">Delete</a></td>
+                    <td><a href="javascript:void(0)" data-id='.$user_id.' class="delete">Delete</a></td>';
+        }
+        else {
+            $up_data = '<tr>
+                    <td>' . $user_id . '</td>
+                    <td>' . $name . '</td>
+                    <td>' . $surname . '</td>
+                    <td>' . $address . '</td>
+                    <td>' . $email . '</td>
+                    <td>' . $password . '</td>   
+                    <td>' . $dob . '</td>
+                    <td>' . $city . '</td>
+                    <td>' . $document . '</td>
+                    <td>
+                        <button data-eid=' . $user_id . ' class="edit-btn btn-primary  px-3 py-2 rounded">Edit</button>
+                    </td>
+                    <td><a href="javascript:void(0)" data-id=' . $user_id . ' class="delete">Delete</a></td>
                     </tr>';
+        }
             echo $up_data;
     }  ?>
 
